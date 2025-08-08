@@ -21,3 +21,6 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push public.ecr.aws/x4l6o7l6/ecr-springboot:1.0
+      - echo "Updating ECS service"
+      - aws ecs update-service --cluster course-end-project-aws-devops --service springboot-task-service-x088enrb --task-definition springboot-task
+
