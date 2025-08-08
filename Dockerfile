@@ -16,7 +16,7 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /etc/tomcat
 
 # Download and extract Tomcat 9
-ARG TOMCAT_VERSION=9.0.90
+ARG TOMCAT_VERSION=9.0.108
 RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/tomcat.tar.gz && \
     tar xzvf /tmp/tomcat.tar.gz -C /etc/tomcat --strip-components=1 && \
     rm /tmp/tomcat.tar.gz
