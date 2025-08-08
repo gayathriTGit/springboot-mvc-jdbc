@@ -9,10 +9,15 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @Configuration
 @EnableTransactionManagement
@@ -24,12 +29,24 @@ public class DatabaseConfig {
     @Bean
     public DataSource dataSource() throws URISyntaxException {
 
+//        try {
+//            URL resourceUrl = SpringBootMvcJdbcApplication.class.getClassLoader().getResource("students_db.db");
+//            Path resourcePath = Paths.get(resourceUrl.toURI());
+//            System.out.println("Resource Path: " + resourcePath.toAbsolutePath());
+//            DB_PATH = resourcePath.toAbsolutePath().toString();
+//        }catch(URISyntaxException ex){
+//            System.out.println(ex.getMessage());
+//        }
         try {
-            URL resourceUrl = SpringBootMvcJdbcApplication.class.getClassLoader().getResource("students_db.db");
-            Path resourcePath = Paths.get(resourceUrl.toURI());
-            System.out.println("Resource Path: " + resourcePath.toAbsolutePath());
-            DB_PATH = resourcePath.toAbsolutePath().toString();
-        }catch(URISyntaxException ex){
+            InputStream dbStream = SpringBootMvcJdbcApplication.class.getClassLoader().getResourceAsStream("students_db.db");
+            File target = new File("students_db.db");
+            System.out.println("Exists" + target.exists() + target.toPath().toString());
+            if (!target.exists()) {
+                Files.copy(dbStream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+            DB_PATH =target.toPath().toString();
+            System.out.println("DB_PATH" + DB_PATH);
+        }catch(IOException ex){
             System.out.println(ex.getMessage());
         }
         org.sqlite.SQLiteDataSource dataSource = new org.sqlite.SQLiteDataSource();
