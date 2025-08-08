@@ -68,6 +68,14 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources/db</directory>
+				<includes>
+					<include>students_db.db</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 </project>
