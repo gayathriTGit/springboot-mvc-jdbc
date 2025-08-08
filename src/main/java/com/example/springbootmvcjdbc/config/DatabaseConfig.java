@@ -25,7 +25,7 @@ public class DatabaseConfig {
     public DataSource dataSource() throws URISyntaxException {
 
         try {
-            URL resourceUrl = SpringBootMvcJdbcApplication.class.getClassLoader().getResource("db/students_db.db");
+            URL resourceUrl = SpringBootMvcJdbcApplication.class.getClassLoader().getResource("students_db.db");
             Path resourcePath = Paths.get(resourceUrl.toURI());
             System.out.println("Resource Path: " + resourcePath.toAbsolutePath());
             DB_PATH = resourcePath.toAbsolutePath().toString();
