@@ -1,11 +1,11 @@
-FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
+FROM tomcat:9.0-jdk21-temurin AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 RUN mvn clean package 
 
 # Stage 2: Create the final image
-FROM eclipse-temurin:21-jre-alpine
+FROM tomcat:9.0-jdk21-temurin
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 9001
