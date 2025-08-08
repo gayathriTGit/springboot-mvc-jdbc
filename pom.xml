@@ -70,6 +70,12 @@
 		</plugins>
 		<resources>
 			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*</include> <!-- Includes all files in src/main/resources -->
+				</includes>
+			</resource>
+			<resource>
 				<directory>src/main/resources/db</directory>
 				<includes>
 					<include>students_db.db</include>
