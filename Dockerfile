@@ -22,13 +22,13 @@ RUN wget https://dlcdn.apache.org/tomcat/tomcat-9/v${TOMCAT_VERSION}/bin/apache-
     rm /tmp/tomcat.tar.gz
 
 # Remove unnecessary files for a slimmer image
-RUN rm -rf /opt/tomcat/webapps/examples /opt/tomcat/webapps/docs /opt/tomcat/webapps/host-manager /opt/tomcat/webapps/manager
+RUN rm -rf /etc/tomcat/webapps/examples /etc/tomcat/webapps/docs /etc/tomcat/webapps/host-manager /etc/tomcat/webapps/manager
 
 # Copy the built WAR file from the build stage
-COPY --from=build /app/target/*.war /opt/tomcat/webapps/your_application.war
+COPY --from=build /app/target/*.jar /etc/tomcat/webapps/springboot-mvc.jar
 
 # Expose Tomcat's default port
-EXPOSE 8080
+EXPOSE 9001
 
 # Define the command to run Tomcat
 CMD ["catalina.sh", "run"]
