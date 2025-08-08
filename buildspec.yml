@@ -1,4 +1,7 @@
 version: 0.2
+env:
+  secrets-manager:
+    DOCKER_CREDENTIALS: "arn:aws:secretsmanager:us-east-1:152531651673:secret:docker-credentials"
 phases:
   pre_build:
     commands:
@@ -6,8 +9,11 @@ phases:
       - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/x4l6o7l6
   build:
     commands:
-      - echo Build started on `date`
+      - echo "Logging in to Docker..."
+      - DOCKER_USERNAME=$(echo $DOCKER_CREDENTIALS | jq -r '.DOCKERHUB_USERNAME')
+      - DOCKER_PASSWORD=$(echo $DOCKER_CREDENTIALS | jq -r '.DOCKERHUB_PASSWORD')
       - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+      - echo Build started on `date`
       - docker build -t ecr-springboot:1.0 .
       - docker tag ecr-springboot:1.0 public.ecr.aws/x4l6o7l6/ecr-springboot:1.0
   post_build:
