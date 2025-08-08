@@ -1,0 +1,16 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo Logging into Amazon ECR...
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/x4l6o7l6
+  build:
+    commands:
+      - echo Build started on `date`
+      - docker build -t ecr-springboot:1.0 .
+      - docker tag ecr-springboot:1.0 public.ecr.aws/x4l6o7l6/ecr-springboot:1.0
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push public.ecr.aws/x4l6o7l6/ecr-springboot:1.0
