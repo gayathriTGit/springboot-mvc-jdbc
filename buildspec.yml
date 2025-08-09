@@ -8,7 +8,6 @@ phases:
       - echo Logging into Amazon ECR...
       - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/d9y2l7x4
       - REPOSITORY_URI=public.ecr.aws/d9y2l7x4/ecr-springboot
-      - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')      
   build:
     commands:
       - echo "Logging in to Docker..."
@@ -16,18 +15,16 @@ phases:
       - DOCKER_PASSWORD=$(echo $DOCKER_CREDENTIALS | jq -r '.DOCKERHUB_PASSWORD')
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - echo Build started on `date`
-      - docker build -t $REPOSITORY_URI:latest .
-      #- docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker build -t $REPOSITORY_URI:1.0 .
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $REPOSITORY_URI:latest
-      #- docker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker push $REPOSITORY_URI:1.0
       - echo Writing image definitions file...
       # Define container name and create imagedefinitions.json for ECS
       - DOCKER_CONTAINER_NAME=springboot
-      - printf '[{"name":"%s","imageUri":"%s"}]' $DOCKER_CONTAINER_NAME $REPOSITORY_URI:latest > imagedefinitions.json
+      - printf '[{"name":"%s","imageUri":"%s"}]' $DOCKER_CONTAINER_NAME $REPOSITORY_URI:1.0 > imagedefinitions.json
       - echo $DOCKER_CONTAINER_NAME
       - echo Displaying imagedefinitions.json content
       - cat imagedefinitions.json
