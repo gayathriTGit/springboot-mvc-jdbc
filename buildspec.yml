@@ -6,8 +6,8 @@ phases:
   pre_build:
     commands:
       - echo Logging into Amazon ECR...
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/d9y2l7x4
-      - REPOSITORY_URI=public.ecr.aws/d9y2l7x4/ecr-springboot
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/o4u1j4t1
+      - REPOSITORY_URI=public.ecr.aws/o4u1j4t1/ecr-springboot
   build:
     commands:
       - echo "Logging in to Docker..."
