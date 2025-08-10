@@ -12,8 +12,10 @@ phases:
       - REPOSITORY_URI=599333294742.dkr.ecr.us-east-1.amazonaws.com/test
   build:
     commands:
-      - echo "Deleting docker image in ecr public repo..."
-      - aws ecr-public batch-delete-image --repository-name ecr-springboot --image-ids imageTag=1.0
+      #- echo "Deleting docker image in ecr public repo..."
+      - echo "Deleting docker image in ecr repo..."
+      #- aws ecr-public batch-delete-image --repository-name ecr-springboot --image-ids imageTag=1.0
+      - aws ecr batch-delete-image --repository-name test --image-ids imageTag=1.0
       - echo "Logging in to Docker..."
       - DOCKER_USERNAME=$(echo $DOCKER_CREDENTIALS | jq -r '.DOCKERHUB_USERNAME')
       - DOCKER_PASSWORD=$(echo $DOCKER_CREDENTIALS | jq -r '.DOCKERHUB_PASSWORD')
