@@ -6,8 +6,10 @@ phases:
   pre_build:
     commands:
       - echo Logging into Amazon ECR...
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/o4u1j4t1
-      - REPOSITORY_URI=public.ecr.aws/o4u1j4t1/ecr-springboot
+      #- aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/o4u1j4t1
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 599333294742.dkr.ecr.us-east-1.amazonaws.com
+      #- REPOSITORY_URI=public.ecr.aws/o4u1j4t1/ecr-springboot
+      - REPOSITORY_URI=public.ecr.aws/o4u1j4t1/test
   build:
     commands:
       - echo "Deleting docker image in ecr public repo..."
