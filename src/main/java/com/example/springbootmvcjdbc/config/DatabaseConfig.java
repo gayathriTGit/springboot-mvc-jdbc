@@ -40,7 +40,7 @@ public class DatabaseConfig {
         try {
             InputStream dbStream = SpringBootMvcJdbcApplication.class.getClassLoader().getResourceAsStream("students_db.db");
             File target = new File("students_db.db");
-            System.out.println("Exists" + target.exists() + target.toPath().toString());
+            System.out.println("Exists " + target.exists() + " " + target.toPath().toString());
             if (!target.exists()) {
                 Files.copy(dbStream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
