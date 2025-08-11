@@ -12,7 +12,6 @@ phases:
       #- REPOSITORY_URI=public.ecr.aws/o4u1j4t1/ecr-springboot
       - IMAGE_NAME="$GIT_SHA"
       - REPOSITORY_URI=666832291975.dkr.ecr.us-east-1.amazonaws.com/ecr-springboot/$IMAGE_NAME
-      - echo "Repository URI $REPOSITORY_URI"
   build:
     commands:
       #- echo "Deleting docker image in ecr public repo..."
