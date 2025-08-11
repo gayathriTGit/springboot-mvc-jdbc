@@ -3,6 +3,9 @@ env:
   secrets-manager:
     DOCKER_CREDENTIALS: "arn:aws:secretsmanager:us-east-1:666832291975:secret:docker-credentials"         
 phases:
+  install:
+    runtime-versions:
+      java: corretto21
   pre_build:
     commands:
       - echo Logging into Amazon ECR...
