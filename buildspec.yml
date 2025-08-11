@@ -33,4 +33,4 @@ phases:
 artifacts:
   files:
     - imagedefinitions.json
-    - target/spring-boot-mvc-jdbc.jar
+    - target/spring-boot-mvc-jdbc-1.0.0.jar
